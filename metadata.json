@@ -1,0 +1,6 @@
+{
+  "name": "SSDX - Controle de Serviços",
+  "description": "Sistema minimalista de controle de serviços para PC e Notebook da SSDX em Franca/SP com Igor Zelnik e persistência em IndexedDB.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
