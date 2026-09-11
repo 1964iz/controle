@@ -113,7 +113,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-black antialiased font-sans selection:bg-blue-100 selection:text-blue-900">
+    <div className="min-h-screen flex flex-col bg-white text-black antialiased font-sans selection:bg-gray-200 selection:text-black">
       {/* Top Header */}
       <Header 
         activeTab={activeTab} 
@@ -237,7 +237,7 @@ export default function App() {
                   </div>
 
                   {inProgressOrders.length === 0 ? (
-                    <div className="text-center py-8 px-4 bg-blue-50/30 rounded-lg border border-dashed border-blue-200">
+                    <div className="text-center py-8 px-4 bg-gray-50 rounded-lg border border-dashed border-gray-300">
                       <p className="text-xs font-bold text-blue-950">Nenhum equipamento aguardando reparo no momento.</p>
                       <p className="text-[11px] text-blue-700 mt-0.5">
                         Todos os equipamentos recebidos foram finalizados ou o banco está zerado.
@@ -256,7 +256,7 @@ export default function App() {
                       {inProgressOrders.slice(0, 6).map((order) => (
                         <div 
                           key={order.id} 
-                          className="p-3.5 rounded-lg border border-blue-200 bg-white hover:border-blue-400 hover:bg-blue-50/20 transition-all flex flex-col justify-between space-y-2"
+                          className="p-3.5 rounded-lg border border-gray-200 bg-white hover:border-blue-400 hover:bg-gray-50 transition-all flex flex-col justify-between space-y-2"
                         >
                           <div>
                             <div className="flex items-center justify-between gap-1">

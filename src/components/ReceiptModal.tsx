@@ -101,7 +101,7 @@ export function ReceiptModal({ order, onClose }: ReceiptModalProps) {
           </div>
 
           {/* Igor Zelnik Technician Badge */}
-          <div className="bg-blue-50/60 border border-blue-200 rounded-lg p-3 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div className="bg-gray-100 border border-gray-300 rounded-lg p-3 text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <span className="font-bold text-blue-950">Responsável Técnico: </span>
               <strong className="text-black">Igor Zelnik</strong>
@@ -157,14 +157,14 @@ export function ReceiptModal({ order, onClose }: ReceiptModalProps) {
 
           {/* Acessórios */}
           {order.accessories && order.accessories.length > 0 && (
-            <div className="bg-blue-50/30 border border-blue-200 rounded-lg p-3 text-xs">
+            <div className="bg-gray-100 border border-gray-300 rounded-lg p-3 text-xs">
               <span className="font-bold text-blue-900 flex items-center gap-1 mb-1">
                 <Package className="w-3.5 h-3.5 text-blue-600" />
                 Itens e Acessórios Deixados:
               </span>
               <div className="flex flex-wrap gap-1.5">
                 {order.accessories.map((acc, idx) => (
-                  <span key={idx} className="bg-white border border-blue-200 px-2 py-0.5 rounded text-[11px] text-blue-900">
+                  <span key={idx} className="bg-white border border-gray-300 px-2 py-0.5 rounded text-[11px] text-blue-900">
                     {acc}
                   </span>
                 ))}
@@ -183,7 +183,7 @@ export function ReceiptModal({ order, onClose }: ReceiptModalProps) {
             </div>
 
             {order.solutionDescription && (
-              <div className="border border-blue-300 bg-blue-50/40 rounded-lg p-3">
+              <div className="border border-gray-300 bg-gray-100 rounded-lg p-3">
                 <span className="font-bold text-blue-950 flex items-center gap-1 mb-1">
                   <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
                   Serviço Realizado / Solução Técnica Aplicada:

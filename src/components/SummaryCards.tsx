@@ -26,7 +26,7 @@ export function SummaryCards({ stats, onFilterClick }: SummaryCardsProps) {
           <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
             Total de Entradas
           </span>
-          <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+          <div className="p-2.5 bg-gray-100 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
             <LogIn className="w-5 h-5" />
           </div>
         </div>
@@ -50,7 +50,7 @@ export function SummaryCards({ stats, onFilterClick }: SummaryCardsProps) {
           <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
             Em Andamento
           </span>
-          <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+          <div className="p-2.5 bg-gray-100 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
             <Clock className="w-5 h-5" />
           </div>
         </div>
@@ -73,7 +73,7 @@ export function SummaryCards({ stats, onFilterClick }: SummaryCardsProps) {
           <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
             Total de Saídas
           </span>
-          <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+          <div className="p-2.5 bg-gray-100 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
             <LogOut className="w-5 h-5" />
           </div>
         </div>
@@ -93,7 +93,7 @@ export function SummaryCards({ stats, onFilterClick }: SummaryCardsProps) {
           <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
             Valor Total Faturado
           </span>
-          <div className="p-2.5 bg-blue-50 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
+          <div className="p-2.5 bg-gray-100 text-blue-600 rounded-lg group-hover:bg-blue-600 group-hover:text-white transition-colors">
             <DollarSign className="w-5 h-5" />
           </div>
         </div>

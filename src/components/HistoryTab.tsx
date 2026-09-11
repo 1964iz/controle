@@ -89,12 +89,12 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
         {/* Filtros e Busca */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           {/* Status Tabs */}
-          <div className="flex items-center p-1 bg-white border border-blue-200 rounded-lg text-xs font-semibold text-blue-900">
+          <div className="flex items-center p-1 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-blue-900">
             <button
               type="button"
               onClick={() => setStatusFilter('todos')}
               className={`px-3 py-1.5 rounded-md transition-colors ${
-                statusFilter === 'todos' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-blue-800'
+                statusFilter === 'todos' ? 'bg-blue-600 text-white' : 'hover:bg-gray-100 text-blue-900'
               }`}
             >
               Todos ({orders.length})
@@ -103,7 +103,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
               type="button"
               onClick={() => setStatusFilter('em_andamento')}
               className={`px-3 py-1.5 rounded-md transition-colors ${
-                statusFilter === 'em_andamento' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-blue-800'
+                statusFilter === 'em_andamento' ? 'bg-blue-600 text-white' : 'hover:bg-gray-100 text-blue-900'
               }`}
             >
               Em Andamento
@@ -112,7 +112,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
               type="button"
               onClick={() => setStatusFilter('finalizado')}
               className={`px-3 py-1.5 rounded-md transition-colors ${
-                statusFilter === 'finalizado' ? 'bg-blue-600 text-white' : 'hover:bg-blue-50 text-blue-800'
+                statusFilter === 'finalizado' ? 'bg-blue-600 text-white' : 'hover:bg-gray-100 text-blue-900'
               }`}
             >
               Finalizados
@@ -127,7 +127,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar cliente, OS, modelo..."
-              className="w-full pl-9 pr-3 py-1.5 bg-white border border-blue-200 rounded-lg text-xs text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-1 focus:ring-blue-600"
+              className="w-full pl-9 pr-3 py-1.5 bg-white border border-gray-300 rounded-lg text-xs text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-1 focus:ring-blue-600"
             />
           </div>
         </div>
@@ -145,7 +145,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
           </p>
         </div>
       ) : (
-        <div className="divide-y divide-blue-100">
+        <div className="divide-y divide-gray-200">
           {filteredOrders.map((order) => {
             const isFinished = order.status === 'finalizado';
             const isInProgress = order.status === 'em_andamento';
@@ -158,7 +158,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
             return (
               <div 
                 key={order.id} 
-                className="p-4 sm:p-5 hover:bg-blue-50/25 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
+                className="p-4 sm:p-5 hover:bg-gray-50 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
               >
                 {/* Left side: Identificação, cliente e equipamento */}
                 <div className="space-y-1.5 flex-1">
@@ -168,14 +168,14 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
                     </span>
 
                     {isInProgress && (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-900 border border-blue-200">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-gray-100 text-blue-900 border border-gray-300">
                         <Clock className="w-3 h-3 text-blue-600" />
                         Em Andamento
                       </span>
                     )}
 
                     {isFinished && (
-                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-300">
+                      <span className="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-gray-100 text-blue-900 border border-gray-300">
                         <CheckCircle2 className="w-3 h-3 text-blue-600" />
                         Finalizado & Entregue
                       </span>
@@ -231,7 +231,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
                   </div>
 
                   {order.solutionDescription && (
-                    <div className="text-xs text-slate-800 bg-blue-50/60 p-2 rounded border border-blue-100 mt-1">
+                    <div className="text-xs text-slate-800 bg-gray-100 p-2 rounded border border-gray-300 mt-1">
                       <span className="font-bold text-blue-900">Solução Realizada:</span> {order.solutionDescription}
                       {order.warrantyPeriod && (
                         <span className="ml-2 text-blue-700 font-medium">({order.warrantyPeriod})</span>
@@ -241,7 +241,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
                 </div>
 
                 {/* Right side: Valores em Preto e Botões */}
-                <div className="flex md:flex-col items-end justify-between md:justify-center gap-3 border-t md:border-t-0 pt-3 md:pt-0 border-blue-100">
+                <div className="flex md:flex-col items-end justify-between md:justify-center gap-3 border-t md:border-t-0 pt-3 md:pt-0 border-gray-200">
                   <div className="text-right">
                     <span className="text-[11px] font-semibold text-blue-700 block">
                       {isFinished ? 'Valor Cobrado:' : 'Valor Orçado:'}
@@ -261,7 +261,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
                       type="button"
                       onClick={() => onOpenReceipt(order)}
                       title="Imprimir / Ver Comprovante da OS"
-                      className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 border border-blue-300 text-blue-800 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                      className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 border border-gray-300 text-blue-900 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
                     >
                       <Printer className="w-3.5 h-3.5 text-blue-600" />
                       <span>Comprovante</span>
@@ -301,7 +301,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
                 type="button"
                 onClick={() => setOrderToDelete(null)}
                 disabled={isDeleting}
-                className="px-4 py-2 border border-blue-200 text-blue-800 text-xs font-semibold rounded-lg hover:bg-blue-50"
+                className="px-4 py-2 border border-gray-300 text-blue-900 text-xs font-semibold rounded-lg hover:bg-gray-100"
               >
                 Cancelar
               </button>

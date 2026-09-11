@@ -142,7 +142,7 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
       </div>
 
       {successMsg && (
-        <div className="bg-blue-50 border border-blue-300 text-blue-900 p-4 rounded-xl flex items-center justify-between gap-3 shadow-xs">
+        <div className="bg-gray-100 border border-gray-300 text-blue-900 p-4 rounded-xl flex items-center justify-between gap-3 shadow-xs">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
             <span className="font-semibold text-sm">{successMsg}</span>
@@ -170,13 +170,13 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Buscar cliente, modelo ou nº da OS..."
-                className="w-full pl-9 pr-3 py-1.5 bg-blue-50/40 border border-blue-200 rounded-md text-xs text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-1 focus:ring-blue-600 focus:bg-white"
+                className="w-full pl-9 pr-3 py-1.5 bg-gray-50 border border-gray-300 rounded-md text-xs text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-1 focus:ring-blue-600 focus:bg-white"
               />
             </div>
 
             {/* List */}
             {inProgressOrders.length === 0 ? (
-              <div className="text-center py-8 px-4 border border-dashed border-blue-200 rounded-lg bg-blue-50/20">
+              <div className="text-center py-8 px-4 border border-dashed border-gray-300 rounded-lg bg-gray-50">
                 <Package className="w-8 h-8 text-blue-400 mx-auto mb-2" />
                 <p className="text-sm font-semibold text-blue-950">Nenhum equipamento em andamento</p>
                 <p className="text-xs text-blue-700 mt-1">
@@ -197,8 +197,8 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
                       onClick={() => handleSelectOrder(order)}
                       className={`p-3 rounded-lg border cursor-pointer transition-all ${
                         isSelected
-                          ? 'border-blue-600 bg-blue-50/80 shadow-xs ring-1 ring-blue-600'
-                          : 'border-blue-200 bg-white hover:border-blue-400 hover:bg-blue-50/30'
+                          ? 'border-blue-600 bg-gray-100 shadow-xs ring-1 ring-blue-600'
+                          : 'border-gray-200 bg-white hover:border-blue-400 hover:bg-gray-50'
                       }`}
                     >
                       <div className="flex items-start justify-between gap-2">
@@ -247,7 +247,7 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
           {selectedOrder ? (
             <div className="bg-white border border-blue-200 rounded-xl shadow-xs overflow-hidden">
               {/* Card Resumo do Equipamento Selecionado */}
-              <div className="bg-blue-50/70 border-b border-blue-200 p-4">
+              <div className="bg-gray-100 border-b border-gray-300 p-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="bg-blue-600 text-white text-xs font-bold px-2.5 py-1 rounded-md font-mono">
@@ -316,7 +316,7 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
                       className={`p-2.5 rounded-lg border text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
                         exitStatus === 'finalizado'
                           ? 'border-blue-600 bg-blue-600 text-white shadow-xs'
-                          : 'border-blue-200 bg-white text-blue-800 hover:bg-blue-50'
+                          : 'border-gray-300 bg-white text-blue-800 hover:bg-gray-100'
                       }`}
                     >
                       <CheckCircle className="w-4 h-4" />
@@ -330,7 +330,7 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
                       className={`p-2.5 rounded-lg border text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
                         exitStatus === 'sem_reparo'
                           ? 'border-slate-600 bg-slate-700 text-white shadow-xs'
-                          : 'border-blue-200 bg-white text-blue-800 hover:bg-blue-50'
+                          : 'border-gray-300 bg-white text-blue-800 hover:bg-gray-100'
                       }`}
                     >
                       <AlertCircle className="w-4 h-4" />
@@ -464,7 +464,7 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
             </div>
           ) : (
             <div className="bg-white border border-blue-200 rounded-xl p-8 shadow-xs text-center flex flex-col items-center justify-center min-h-[380px]">
-              <div className="p-3 bg-blue-50 text-blue-600 rounded-full mb-3">
+              <div className="p-3 bg-gray-100 text-blue-600 rounded-full mb-3 border border-gray-300">
                 <CheckCircle className="w-8 h-8" />
               </div>
               <h3 className="text-base font-bold text-blue-950">Selecione uma Ordem de Serviço</h3>

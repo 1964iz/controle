@@ -159,7 +159,7 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
         )}
 
         {successMsg && (
-          <div className="bg-blue-50 border border-blue-300 text-blue-900 text-sm p-3.5 rounded-lg flex items-center gap-2">
+          <div className="bg-gray-100 border border-gray-300 text-blue-900 text-sm p-3.5 rounded-lg flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
             <span className="font-medium">{successMsg}</span>
           </div>
@@ -218,8 +218,8 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
                 onClick={() => setEquipmentType('notebook')}
                 className={`flex items-center justify-center gap-2 p-2.5 rounded-lg border text-sm font-medium transition-colors ${
                   equipmentType === 'notebook'
-                    ? 'border-blue-600 bg-blue-50 text-blue-900 font-bold ring-1 ring-blue-600'
-                    : 'border-blue-200 bg-white text-blue-800 hover:bg-blue-50/40'
+                    ? 'border-blue-600 bg-gray-100 text-blue-900 font-bold ring-1 ring-blue-600'
+                    : 'border-gray-300 bg-white text-blue-800 hover:bg-gray-100'
                 }`}
               >
                 <Laptop className="w-4 h-4 text-blue-600" />
@@ -232,8 +232,8 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
                 onClick={() => setEquipmentType('pc_desktop')}
                 className={`flex items-center justify-center gap-2 p-2.5 rounded-lg border text-sm font-medium transition-colors ${
                   equipmentType === 'pc_desktop'
-                    ? 'border-blue-600 bg-blue-50 text-blue-900 font-bold ring-1 ring-blue-600'
-                    : 'border-blue-200 bg-white text-blue-800 hover:bg-blue-50/40'
+                    ? 'border-blue-600 bg-gray-100 text-blue-900 font-bold ring-1 ring-blue-600'
+                    : 'border-gray-300 bg-white text-blue-800 hover:bg-gray-100'
                 }`}
               >
                 <Monitor className="w-4 h-4 text-blue-600" />
@@ -246,8 +246,8 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
                 onClick={() => setEquipmentType('all_in_one')}
                 className={`flex items-center justify-center gap-2 p-2.5 rounded-lg border text-sm font-medium transition-colors ${
                   equipmentType === 'all_in_one'
-                    ? 'border-blue-600 bg-blue-50 text-blue-900 font-bold ring-1 ring-blue-600'
-                    : 'border-blue-200 bg-white text-blue-800 hover:bg-blue-50/40'
+                    ? 'border-blue-600 bg-gray-100 text-blue-900 font-bold ring-1 ring-blue-600'
+                    : 'border-gray-300 bg-white text-blue-800 hover:bg-gray-100'
                 }`}
               >
                 <Monitor className="w-4 h-4 text-blue-600" />
@@ -260,8 +260,8 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
                 onClick={() => setEquipmentType('outro')}
                 className={`flex items-center justify-center gap-2 p-2.5 rounded-lg border text-sm font-medium transition-colors ${
                   equipmentType === 'outro'
-                    ? 'border-blue-600 bg-blue-50 text-blue-900 font-bold ring-1 ring-blue-600'
-                    : 'border-blue-200 bg-white text-blue-800 hover:bg-blue-50/40'
+                    ? 'border-blue-600 bg-gray-100 text-blue-900 font-bold ring-1 ring-blue-600'
+                    : 'border-gray-300 bg-white text-blue-800 hover:bg-gray-100'
                 }`}
               >
                 <Package className="w-4 h-4 text-blue-600" />
@@ -317,7 +317,7 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
                     className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
                       isSelected
                         ? 'bg-blue-600 border-blue-600 text-white font-medium shadow-xs'
-                        : 'bg-white border-blue-200 text-blue-800 hover:bg-blue-50'
+                        : 'bg-white border-gray-300 text-blue-800 hover:bg-gray-100'
                     }`}
                   >
                     {isSelected ? '✓ ' : '+ '}{acc}
@@ -338,7 +338,7 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
               <button
                 type="button"
                 onClick={handleAddCustomAccessory}
-                className="px-3 py-1.5 text-xs bg-blue-100 hover:bg-blue-200 text-blue-800 font-semibold rounded-md transition-colors"
+                className="px-3 py-1.5 text-xs bg-gray-100 hover:bg-gray-200 text-blue-900 border border-gray-300 font-semibold rounded-md transition-colors"
               >
                 Adicionar
               </button>
