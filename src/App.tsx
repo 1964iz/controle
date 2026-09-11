@@ -53,6 +53,8 @@ export default function App() {
   const [selectedReceipt, setSelectedReceipt] = useState<ServiceOrder | null>(null);
   const [receiptAction, setReceiptAction] = useState<'print' | 'pdf' | null>(null);
   const [initialHistoryFilter, setInitialHistoryFilter] = useState<string>('todos');
+  const [lastDbUpdate, setLastDbUpdate] = useState<Date>(() => new Date());
+  const [pageLoadedAt] = useState<Date>(() => new Date());
 
   const handleOpenReceipt = (order: ServiceOrder, autoAction?: 'print' | 'pdf') => {
     setSelectedReceipt(order);
@@ -72,6 +74,7 @@ export default function App() {
       setOrders(data);
       const nextOS = await getNextOSNumber();
       setNextOSPreview(nextOS);
+      setLastDbUpdate(new Date());
     } catch (err) {
       console.error('Falha ao carregar registros do IndexedDB:', err);
     } finally {
@@ -97,17 +100,20 @@ export default function App() {
   const handleEntrySuccess = (newOrder: ServiceOrder) => {
     setOrders(prev => [newOrder, ...prev]);
     setNextOSPreview(prev => Math.max(prev, newOrder.osNumber + 1));
+    setLastDbUpdate(new Date());
     setActiveTab('resumo');
   };
 
   // Handle exit update
   const handleExitSuccess = (updatedOrder: ServiceOrder) => {
     setOrders(prev => prev.map(o => o.id === updatedOrder.id ? updatedOrder : o));
+    setLastDbUpdate(new Date());
   };
 
   // Handle individual order deletion
   const handleOrderDeleted = (id: string) => {
     setOrders(prev => prev.filter(o => o.id !== id));
+    setLastDbUpdate(new Date());
   };
 
   // Handle clear entire database
@@ -115,6 +121,7 @@ export default function App() {
     await clearAllData();
     setOrders([]);
     setNextOSPreview(1001);
+    setLastDbUpdate(new Date());
     setActiveTab('resumo');
   };
 
@@ -366,6 +373,9 @@ export default function App() {
       <FooterStatus 
         recordCount={orders.length} 
         onClearAll={handleClearAllData} 
+        lastDbUpdate={lastDbUpdate}
+        pageLoadedAt={pageLoadedAt}
+        onRefreshDb={loadDatabase}
       />
     </div>
   );
