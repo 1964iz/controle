@@ -13,7 +13,12 @@ import {
   Clock,
   ArrowRight,
   CheckCircle2,
-  FileText
+  FileText,
+  Printer,
+  FileDown,
+  MessageCircle,
+  MapPin,
+  User
 } from 'lucide-react';
 import { ServiceOrder } from '../types';
 import { updateService, formatCurrencyBRL, formatDateBR } from '../services/db';
@@ -21,7 +26,7 @@ import { updateService, formatCurrencyBRL, formatDateBR } from '../services/db';
 interface ExitTabProps {
   orders: ServiceOrder[];
   onSuccess: (updatedOrder: ServiceOrder) => void;
-  onOpenReceipt: (order: ServiceOrder) => void;
+  onOpenReceipt: (order: ServiceOrder, autoAction?: 'print' | 'pdf') => void;
 }
 
 export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
@@ -37,7 +42,7 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
   const [solutionDescription, setSolutionDescription] = useState('');
   const [finalValue, setFinalValue] = useState<string>('');
   const [paymentMethod, setPaymentMethod] = useState('PIX');
-  const [warrantyPeriod, setWarrantyPeriod] = useState('90 Dias (Garantia Padrão SSDX)');
+  const [warrantyPeriod, setWarrantyPeriod] = useState('7 Dias (Garantia Padrão SSDX)');
   const [exitStatus, setExitStatus] = useState<'finalizado' | 'sem_reparo'>('finalizado');
   const [technicianNotes, setTechnicianNotes] = useState('');
   const [exitDate, setExitDate] = useState(() => {
@@ -49,6 +54,7 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
+  const [justFinalizedOrder, setJustFinalizedOrder] = useState<ServiceOrder | null>(null);
 
   // Filtered by search
   const filteredInProgress = useMemo(() => {
@@ -58,7 +64,8 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
       o.clientName.toLowerCase().includes(term) ||
       o.brandModel.toLowerCase().includes(term) ||
       o.osNumber.toString().includes(term) ||
-      (o.clientPhone && o.clientPhone.includes(term))
+      (o.clientPhone && o.clientPhone.includes(term)) ||
+      (o.clientCpf && o.clientCpf.includes(term))
     );
   }, [inProgressOrders, searchTerm]);
 
@@ -103,6 +110,7 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
       });
 
       setSuccessMsg(`Saída da OS #${updated.osNumber} registrada com sucesso no IndexedDB!`);
+      setJustFinalizedOrder(updated);
       onSuccess(updated);
       setSelectedOrderId('');
       setSolutionDescription('');
@@ -141,7 +149,76 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
         </div>
       </div>
 
-      {successMsg && (
+      {/* Banner de Conclusão com Imprimir e Salvar em PDF */}
+      {justFinalizedOrder && (
+        <div className="bg-emerald-50 border-2 border-emerald-500 rounded-xl p-5 shadow-sm">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div className="flex items-start gap-3.5">
+              <div className="p-2.5 bg-emerald-100 border border-emerald-300 rounded-xl text-emerald-700 shrink-0">
+                <CheckCircle2 className="w-6 h-6" />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 flex-wrap">
+                  <span className="bg-emerald-700 text-white text-xs font-bold px-2 py-0.5 rounded font-mono">
+                    OS #{justFinalizedOrder.osNumber}
+                  </span>
+                  <h3 className="text-sm font-bold text-emerald-950">
+                    Ordem de Serviço Finalizada com Sucesso!
+                  </h3>
+                </div>
+                <p className="text-xs text-emerald-800 mt-1">
+                  Cliente: <strong>{justFinalizedOrder.clientName}</strong> • Modelo: <strong>{justFinalizedOrder.brandModel}</strong> • Garantia: <strong>{justFinalizedOrder.warrantyPeriod}</strong>
+                </p>
+                <p className="text-xs text-emerald-950 font-semibold mt-0.5">
+                  Finalização concluída. Imprima o comprovante ou salve em PDF para o cliente:
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-2 shrink-0">
+              <button
+                type="button"
+                id="btn-quick-print"
+                onClick={() => onOpenReceipt(justFinalizedOrder, 'print')}
+                className="px-3.5 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+              >
+                <Printer className="w-4 h-4" />
+                Imprimir
+              </button>
+
+              <button
+                type="button"
+                id="btn-quick-pdf"
+                onClick={() => onOpenReceipt(justFinalizedOrder, 'pdf')}
+                className="px-3.5 py-2 bg-emerald-700 hover:bg-emerald-800 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs transition-colors cursor-pointer"
+              >
+                <FileDown className="w-4 h-4" />
+                Salvar em PDF
+              </button>
+
+              <button
+                type="button"
+                onClick={() => onOpenReceipt(justFinalizedOrder)}
+                className="px-3 py-2 bg-white border border-gray-300 hover:bg-gray-100 text-blue-900 rounded-lg text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
+              >
+                <FileText className="w-3.5 h-3.5" />
+                Visualizar
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setJustFinalizedOrder(null)}
+                className="p-1.5 text-slate-500 hover:text-slate-800 rounded-lg hover:bg-emerald-100 transition-colors"
+                title="Fechar alerta"
+              >
+                ✕
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {successMsg && !justFinalizedOrder && (
         <div className="bg-gray-100 border border-gray-300 text-blue-900 p-4 rounded-xl flex items-center justify-between gap-3 shadow-xs">
           <div className="flex items-center gap-2">
             <CheckCircle2 className="w-5 h-5 text-blue-600 shrink-0" />
@@ -271,10 +348,20 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
                   <div>
                     <span className="text-blue-600 block">Cliente:</span>
                     <strong className="text-blue-950">{selectedOrder.clientName}</strong>
+                    {selectedOrder.clientCpf && (
+                      <span className="text-[11px] text-slate-600 block font-mono">
+                        CPF: {selectedOrder.clientCpf}
+                      </span>
+                    )}
                   </div>
                   <div>
-                    <span className="text-blue-600 block">Contato:</span>
+                    <span className="text-blue-600 block">Contato / WhatsApp:</span>
                     <strong className="text-blue-950">{selectedOrder.clientPhone || 'Não informado'}</strong>
+                    {selectedOrder.clientWhatsapp && (
+                      <span className="text-[11px] text-emerald-700 block font-medium">
+                        Zap: {selectedOrder.clientWhatsapp}
+                      </span>
+                    )}
                   </div>
                   <div>
                     <span className="text-blue-600 block">Orçamento Inicial:</span>
@@ -287,6 +374,13 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
                     <span className="text-blue-950">{formatDateBR(selectedOrder.entryDate)}</span>
                   </div>
                 </div>
+
+                {selectedOrder.clientAddress && (
+                  <div className="mt-2 text-xs bg-white/90 p-2 rounded-md border border-gray-200 text-slate-700 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span><strong>Endereço do Cliente:</strong> {selectedOrder.clientAddress}</span>
+                  </div>
+                )}
 
                 <div className="mt-2 text-xs bg-white p-2 rounded-md border border-blue-200/60">
                   <span className="text-blue-800 font-semibold">Defeito Registrado:</span>{' '}
@@ -410,11 +504,11 @@ export function ExitTab({ orders, onSuccess, onOpenReceipt }: ExitTabProps) {
                       onChange={(e) => setWarrantyPeriod(e.target.value)}
                       className="w-full px-3 py-2 bg-white border border-blue-200 rounded-md text-sm font-medium text-black focus:outline-hidden focus:ring-2 focus:ring-blue-600"
                     >
-                      <option value="90 Dias (Garantia Padrão SSDX)">90 Dias (Garantia Padrão SSDX)</option>
+                      <option value="7 Dias (Garantia Padrão SSDX)">7 Dias (Garantia Padrão SSDX)</option>
+                      <option value="15 Dias">15 Dias</option>
                       <option value="30 Dias">30 Dias</option>
-                      <option value="6 Meses">6 Meses</option>
-                      <option value="1 Ano (Hardware Novo)">1 Ano (Hardware Novo)</option>
-                      <option value="Sem Garantia">Sem Garantia (Serviço de Limpeza/Software)</option>
+                      <option value="90 Dias">90 Dias</option>
+                      <option value="Sem Garantia">Sem Garantia</option>
                     </select>
                   </div>
 

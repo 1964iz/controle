@@ -12,7 +12,11 @@ import {
   FileText,
   Clock,
   CheckCircle2,
-  AlertCircle
+  AlertCircle,
+  FileDown,
+  MessageCircle,
+  MapPin,
+  CreditCard
 } from 'lucide-react';
 import { ServiceOrder } from '../types';
 import { deleteService, formatCurrencyBRL, formatDateBR } from '../services/db';
@@ -20,7 +24,7 @@ import { deleteService, formatCurrencyBRL, formatDateBR } from '../services/db';
 interface HistoryTabProps {
   orders: ServiceOrder[];
   onOrderDeleted: (id: string) => void;
-  onOpenReceipt: (order: ServiceOrder) => void;
+  onOpenReceipt: (order: ServiceOrder, autoAction?: 'print' | 'pdf') => void;
   initialFilter?: string;
 }
 
@@ -45,9 +49,12 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
         const matchesModel = order.brandModel.toLowerCase().includes(term);
         const matchesOS = order.osNumber.toString().includes(term);
         const matchesPhone = order.clientPhone?.includes(term);
+        const matchesCpf = order.clientCpf?.includes(term);
+        const matchesWhatsapp = order.clientWhatsapp?.includes(term);
+        const matchesAddress = order.clientAddress?.toLowerCase().includes(term);
         const matchesDefect = order.defectDescription?.toLowerCase().includes(term);
         const matchesSerial = order.serialNumber?.toLowerCase().includes(term);
-        return matchesClient || matchesModel || matchesOS || matchesPhone || matchesDefect || matchesSerial;
+        return matchesClient || matchesModel || matchesOS || matchesPhone || matchesCpf || matchesWhatsapp || matchesAddress || matchesDefect || matchesSerial;
       }
       return true;
     });
@@ -126,7 +133,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Buscar cliente, OS, modelo..."
+              placeholder="Buscar cliente, CPF, OS, modelo..."
               className="w-full pl-9 pr-3 py-1.5 bg-white border border-gray-300 rounded-lg text-xs text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-1 focus:ring-blue-600"
             />
           </div>
@@ -158,7 +165,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
             return (
               <div 
                 key={order.id} 
-                className="p-4 sm:p-5 hover:bg-gray-50 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4"
+                className="p-4 sm:p-5 hover:bg-gray-50 transition-colors flex flex-col lg:flex-row lg:items-center justify-between gap-4"
               >
                 {/* Left side: Identificação, cliente e equipamento */}
                 <div className="space-y-1.5 flex-1">
@@ -204,13 +211,35 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
                       <User className="w-4 h-4 text-blue-600 shrink-0" />
                       {order.clientName}
                     </span>
+
+                    {order.clientCpf && (
+                      <span className="text-xs text-slate-600 flex items-center gap-1 font-mono">
+                        <CreditCard className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                        CPF: {order.clientCpf}
+                      </span>
+                    )}
+
                     {order.clientPhone && (
                       <span className="text-xs text-blue-700 flex items-center gap-1">
                         <Phone className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                         {order.clientPhone}
                       </span>
                     )}
+
+                    {order.clientWhatsapp && (
+                      <span className="text-xs text-emerald-700 flex items-center gap-1 font-medium">
+                        <MessageCircle className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                        WhatsApp: {order.clientWhatsapp}
+                      </span>
+                    )}
                   </div>
+
+                  {order.clientAddress && (
+                    <div className="text-xs text-slate-600 flex items-center gap-1">
+                      <MapPin className="w-3 h-3 text-blue-600 shrink-0" />
+                      <span>{order.clientAddress}</span>
+                    </div>
+                  )}
 
                   <div className="flex items-center gap-2 text-xs font-semibold text-blue-900">
                     {order.equipmentType === 'pc_desktop' ? (
@@ -241,7 +270,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
                 </div>
 
                 {/* Right side: Valores em Preto e Botões */}
-                <div className="flex md:flex-col items-end justify-between md:justify-center gap-3 border-t md:border-t-0 pt-3 md:pt-0 border-gray-200">
+                <div className="flex lg:flex-col items-end justify-between lg:justify-center gap-3 border-t lg:border-t-0 pt-3 lg:pt-0 border-gray-200 shrink-0">
                   <div className="text-right">
                     <span className="text-[11px] font-semibold text-blue-700 block">
                       {isFinished ? 'Valor Cobrado:' : 'Valor Orçado:'}
@@ -256,15 +285,35 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
                     )}
                   </div>
 
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={() => onOpenReceipt(order, 'print')}
+                      title="Imprimir Comprovante da OS"
+                      className="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-md text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
+                    >
+                      <Printer className="w-3.5 h-3.5" />
+                      <span>Imprimir</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => onOpenReceipt(order, 'pdf')}
+                      title="Salvar OS em PDF"
+                      className="px-2.5 py-1.5 bg-emerald-700 hover:bg-emerald-800 text-white rounded-md text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer shadow-2xs"
+                    >
+                      <FileDown className="w-3.5 h-3.5" />
+                      <span>PDF</span>
+                    </button>
+
                     <button
                       type="button"
                       onClick={() => onOpenReceipt(order)}
-                      title="Imprimir / Ver Comprovante da OS"
-                      className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 border border-gray-300 text-blue-900 rounded-md text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+                      title="Visualizar Comprovante da OS"
+                      className="px-2.5 py-1.5 bg-gray-100 hover:bg-gray-200 border border-gray-300 text-blue-900 rounded-md text-xs font-semibold flex items-center gap-1 transition-colors cursor-pointer"
                     >
-                      <Printer className="w-3.5 h-3.5 text-blue-600" />
-                      <span>Comprovante</span>
+                      <FileText className="w-3.5 h-3.5 text-blue-600" />
+                      <span>Visualizar</span>
                     </button>
 
                     <button

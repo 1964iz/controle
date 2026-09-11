@@ -6,7 +6,10 @@ export interface ServiceOrder {
   id: string;
   osNumber: number;
   clientName: string;
+  clientCpf?: string;
+  clientAddress?: string;
   clientPhone: string;
+  clientWhatsapp?: string;
   equipmentType: EquipmentType;
   brandModel: string;
   serialNumber?: string;

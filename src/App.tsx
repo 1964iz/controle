@@ -51,7 +51,18 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<'resumo' | 'entrada' | 'saida' | 'historico'>('resumo');
   const [nextOSPreview, setNextOSPreview] = useState<number>(1001);
   const [selectedReceipt, setSelectedReceipt] = useState<ServiceOrder | null>(null);
+  const [receiptAction, setReceiptAction] = useState<'print' | 'pdf' | null>(null);
   const [initialHistoryFilter, setInitialHistoryFilter] = useState<string>('todos');
+
+  const handleOpenReceipt = (order: ServiceOrder, autoAction?: 'print' | 'pdf') => {
+    setSelectedReceipt(order);
+    setReceiptAction(autoAction || null);
+  };
+
+  const handleCloseReceipt = () => {
+    setSelectedReceipt(null);
+    setReceiptAction(null);
+  };
 
   // Load all records from IndexedDB
   const loadDatabase = useCallback(async () => {
@@ -291,7 +302,7 @@ export default function App() {
                             <button
                               type="button"
                               onClick={() => {
-                                setSelectedReceipt(order);
+                                handleOpenReceipt(order);
                               }}
                               className="text-blue-700 font-semibold hover:underline flex items-center gap-1 cursor-pointer"
                             >
@@ -323,7 +334,7 @@ export default function App() {
                 <ExitTab 
                   orders={orders} 
                   onSuccess={handleExitSuccess} 
-                  onOpenReceipt={(order) => setSelectedReceipt(order)} 
+                  onOpenReceipt={handleOpenReceipt} 
                 />
               </div>
             )}
@@ -334,7 +345,7 @@ export default function App() {
                 <HistoryTab 
                   orders={orders} 
                   onOrderDeleted={handleOrderDeleted} 
-                  onOpenReceipt={(order) => setSelectedReceipt(order)} 
+                  onOpenReceipt={handleOpenReceipt} 
                   initialFilter={initialHistoryFilter}
                 />
               </div>
@@ -347,7 +358,8 @@ export default function App() {
       {/* Comprovante / Recibo Modal */}
       <ReceiptModal 
         order={selectedReceipt} 
-        onClose={() => setSelectedReceipt(null)} 
+        onClose={handleCloseReceipt} 
+        initialAction={receiptAction}
       />
 
       {/* Rodapé com status do banco e botão de limpar */}

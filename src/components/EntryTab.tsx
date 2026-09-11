@@ -11,7 +11,10 @@ import {
   Package, 
   FileText,
   Calendar,
-  AlertCircle
+  AlertCircle,
+  MapPin,
+  MessageCircle,
+  CreditCard
 } from 'lucide-react';
 import { EquipmentType, ServiceOrder } from '../types';
 import { addService } from '../services/db';
@@ -31,9 +34,31 @@ const COMMON_ACCESSORIES = [
   'Sem Acessórios'
 ];
 
+function formatCPF(value: string): string {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+  if (digits.length <= 3) return digits;
+  if (digits.length <= 6) return `${digits.slice(0, 3)}.${digits.slice(3)}`;
+  if (digits.length <= 9) return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6)}`;
+  return `${digits.slice(0, 3)}.${digits.slice(3, 6)}.${digits.slice(6, 9)}-${digits.slice(9, 11)}`;
+}
+
+function formatPhone(value: string): string {
+  const digits = value.replace(/\D/g, '').slice(0, 11);
+  if (digits.length === 0) return '';
+  if (digits.length <= 2) return `(${digits}`;
+  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`;
+}
+
 export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
   const [clientName, setClientName] = useState('');
+  const [clientCpf, setClientCpf] = useState('');
+  const [clientAddress, setClientAddress] = useState('');
   const [clientPhone, setClientPhone] = useState('');
+  const [clientWhatsapp, setClientWhatsapp] = useState('');
+  const [sameAsPhone, setSameAsPhone] = useState(true);
+
   const [equipmentType, setEquipmentType] = useState<EquipmentType>('notebook');
   const [brandModel, setBrandModel] = useState('');
   const [serialNumber, setSerialNumber] = useState('');
@@ -53,6 +78,21 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
+
+  const handlePhoneChange = (val: string) => {
+    const formatted = formatPhone(val);
+    setClientPhone(formatted);
+    if (sameAsPhone) {
+      setClientWhatsapp(formatted);
+    }
+  };
+
+  const handleToggleSameAsPhone = (checked: boolean) => {
+    setSameAsPhone(checked);
+    if (checked) {
+      setClientWhatsapp(clientPhone);
+    }
+  };
 
   const toggleAccessory = (acc: string) => {
     if (accessories.includes(acc)) {
@@ -92,9 +132,14 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
       setIsSubmitting(true);
       const parsedBudget = parseFloat(budgetedValue.replace(',', '.')) || 0;
 
+      const effectiveWhatsapp = sameAsPhone ? clientPhone : clientWhatsapp;
+
       const created = await addService({
         clientName: clientName.trim(),
+        clientCpf: clientCpf.trim() || undefined,
+        clientAddress: clientAddress.trim() || undefined,
         clientPhone: clientPhone.trim(),
+        clientWhatsapp: effectiveWhatsapp.trim() || undefined,
         equipmentType,
         brandModel: brandModel.trim(),
         serialNumber: serialNumber.trim() || undefined,
@@ -111,7 +156,11 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
 
       // Reset form
       setClientName('');
+      setClientCpf('');
+      setClientAddress('');
       setClientPhone('');
+      setClientWhatsapp('');
+      setSameAsPhone(true);
       setBrandModel('');
       setSerialNumber('');
       setDefectDescription('');
@@ -171,6 +220,7 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
             <User className="w-4 h-4 text-blue-600" /> Dados do Cliente
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Nome do Cliente */}
             <div>
               <label htmlFor="clientName" className="block text-xs font-semibold text-blue-900 mb-1">
                 Nome do Cliente <span className="text-red-500">*</span>
@@ -182,21 +232,85 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
                 value={clientName}
                 onChange={(e) => setClientName(e.target.value)}
                 placeholder="Ex: Carlos Alberto da Silva"
-                className="w-full px-3 py-2 bg-white border border-blue-200 rounded-md text-sm text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               />
             </div>
 
+            {/* CPF do Cliente */}
+            <div>
+              <label htmlFor="clientCpf" className="block text-xs font-semibold text-blue-900 mb-1 flex items-center gap-1">
+                <CreditCard className="w-3.5 h-3.5 text-blue-600" /> CPF do Cliente
+              </label>
+              <input
+                id="clientCpf"
+                type="text"
+                value={clientCpf}
+                onChange={(e) => setClientCpf(formatCPF(e.target.value))}
+                maxLength={14}
+                placeholder="000.000.000-00"
+                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent font-mono"
+              />
+            </div>
+
+            {/* Telefone */}
             <div>
               <label htmlFor="clientPhone" className="block text-xs font-semibold text-blue-900 mb-1 flex items-center gap-1">
-                <Phone className="w-3.5 h-3.5 text-blue-600" /> Telefone / WhatsApp (Franca e Região)
+                <Phone className="w-3.5 h-3.5 text-blue-600" /> Telefone Principal <span className="text-red-500">*</span>
               </label>
               <input
                 id="clientPhone"
                 type="text"
+                required
                 value={clientPhone}
-                onChange={(e) => setClientPhone(e.target.value)}
+                onChange={(e) => handlePhoneChange(e.target.value)}
+                maxLength={15}
                 placeholder="(16) 99999-9999"
-                className="w-full px-3 py-2 bg-white border border-blue-200 rounded-md text-sm text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+              />
+            </div>
+
+            {/* WhatsApp */}
+            <div>
+              <div className="flex items-center justify-between mb-1">
+                <label htmlFor="clientWhatsapp" className="text-xs font-semibold text-blue-900 flex items-center gap-1">
+                  <MessageCircle className="w-3.5 h-3.5 text-emerald-600" /> WhatsApp
+                </label>
+                <label className="text-[11px] text-blue-700 flex items-center gap-1 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={sameAsPhone}
+                    onChange={(e) => handleToggleSameAsPhone(e.target.checked)}
+                    className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 h-3 w-3"
+                  />
+                  <span>Mesmo do telefone</span>
+                </label>
+              </div>
+              <input
+                id="clientWhatsapp"
+                type="text"
+                disabled={sameAsPhone}
+                value={sameAsPhone ? clientPhone : clientWhatsapp}
+                onChange={(e) => setClientWhatsapp(formatPhone(e.target.value))}
+                maxLength={15}
+                placeholder="(16) 99999-9999"
+                className={`w-full px-3 py-2 border rounded-md text-sm text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent ${
+                  sameAsPhone ? 'bg-gray-100 border-gray-200 text-slate-600 cursor-not-allowed' : 'bg-white border-gray-300'
+                }`}
+              />
+            </div>
+
+            {/* Endereço Completo do Cliente */}
+            <div className="md:col-span-2">
+              <label htmlFor="clientAddress" className="block text-xs font-semibold text-blue-900 mb-1 flex items-center gap-1">
+                <MapPin className="w-3.5 h-3.5 text-blue-600" /> Endereço do Cliente (Rua, Número, Bairro, Cidade)
+              </label>
+              <input
+                id="clientAddress"
+                type="text"
+                value={clientAddress}
+                onChange={(e) => setClientAddress(e.target.value)}
+                placeholder="Ex: Rua Major Claudiano, 1200 - Centro, Franca - SP"
+                className="w-full px-3 py-2 bg-white border border-gray-300 rounded-md text-sm text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-600 focus:border-transparent"
               />
             </div>
           </div>
