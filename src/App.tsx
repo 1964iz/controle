@@ -144,9 +144,9 @@ export default function App() {
         
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20 text-center">
-            <div className="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mb-4"></div>
-            <p className="text-sm font-bold text-blue-950">Carregando Banco de Dados IndexedDB...</p>
-            <p className="text-xs text-blue-700 mt-1">Recuperando histórico da SSDX em Franca/SP</p>
+            <div className="w-10 h-10 border-4 border-slate-800 border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p className="text-sm font-bold text-slate-900">Carregando Banco de Dados IndexedDB...</p>
+            <p className="text-xs text-slate-600 mt-1">Recuperando histórico da SSDX em Franca/SP</p>
           </div>
         ) : (
           <>
@@ -154,39 +154,39 @@ export default function App() {
             {activeTab === 'resumo' && (
               <div className="space-y-6 animate-fade-in">
                 
-                {/* Hero / Identidade SSDX e Igor Zelnik - Painel Superior com Fundo Cinza Claro e Ícone de Computador Moderno */}
-                <div className="bg-gray-100 border border-gray-300 rounded-2xl p-6 shadow-xs relative overflow-hidden">
+                {/* Hero / Identidade SSDX e Igor Zelnik - Painel Superior Prata Claro (Light Silver) com Fundo Branco na Página */}
+                <div className="bg-gradient-to-r from-slate-100 via-gray-100 to-slate-200 border border-slate-300 rounded-2xl p-6 shadow-xs relative overflow-hidden">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 relative z-10">
                     <div className="space-y-3">
                       {/* Modern Computer Badge Bar at the Top */}
                       <div className="flex flex-wrap items-center gap-2">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-white text-blue-900 border border-gray-300 shadow-2xs">
-                          <Monitor className="w-4 h-4 text-blue-600 stroke-[2.2]" />
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-white text-slate-800 border border-slate-300 shadow-2xs">
+                          <Monitor className="w-4 h-4 text-slate-700 stroke-[2.2]" />
                           <span>Computadores & Notebooks</span>
                         </div>
-                        <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-blue-600 text-white flex items-center gap-1 shadow-2xs">
+                        <span className="px-2.5 py-1 rounded-full text-xs font-bold bg-slate-800 text-white flex items-center gap-1 shadow-2xs">
                           <Cpu className="w-3.5 h-3.5" />
                           SSDX
                         </span>
-                        <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-white text-blue-900 border border-gray-300 flex items-center gap-1 shadow-2xs">
+                        <span className="px-2.5 py-1 rounded-full text-xs font-extrabold bg-white text-slate-800 border border-slate-300 flex items-center gap-1 shadow-2xs">
                           <ShieldCheck className="w-3.5 h-3.5 text-blue-600" />
                           Operador desde 1997
                         </span>
-                        <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-blue-800 border border-gray-300 flex items-center gap-1 shadow-2xs">
+                        <span className="px-2.5 py-1 rounded-full text-xs font-semibold bg-white text-slate-700 border border-slate-300 flex items-center gap-1 shadow-2xs">
                           <MapPin className="w-3.5 h-3.5 text-blue-600" />
                           Franca - SP
                         </span>
                       </div>
 
                       <div className="flex items-start gap-3.5">
-                        <div className="p-3 bg-white border border-gray-300 rounded-xl text-blue-600 shadow-xs hidden sm:flex items-center justify-center shrink-0">
-                          <Monitor className="w-8 h-8 text-blue-600 stroke-[2.2]" />
+                        <div className="p-3 bg-white border border-slate-300 rounded-xl text-slate-800 shadow-xs hidden sm:flex items-center justify-center shrink-0">
+                          <Monitor className="w-8 h-8 text-slate-800 stroke-[2.2]" />
                         </div>
                         <div>
-                          <h2 className="text-2xl sm:text-3xl font-black text-blue-950 tracking-tight">
+                          <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
                             Controle de Serviços para PC e Notebook
                           </h2>
-                          <p className="text-sm text-blue-900 max-w-2xl leading-relaxed mt-1">
+                          <p className="text-sm text-slate-700 max-w-2xl leading-relaxed mt-1">
                             Atendimento técnico com <strong className="text-black font-semibold">Igor Zelnik</strong>: 
                             Técnico, Operador, Vendedor e Formado em TI. Sistema minimalista e veloz com armazenamento persistente em IndexedDB para a cidade de Franca/SP.
                           </p>
@@ -200,7 +200,7 @@ export default function App() {
                         type="button"
                         id="btn-quick-new-entry"
                         onClick={() => setActiveTab('entrada')}
-                        className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+                        className="px-4 py-2.5 bg-slate-900 hover:bg-black text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all flex items-center gap-2 cursor-pointer"
                       >
                         <PlusCircle className="w-4 h-4" />
                         Nova Entrada (OS #{nextOSPreview})
@@ -210,9 +210,9 @@ export default function App() {
                         type="button"
                         id="btn-quick-exit"
                         onClick={() => setActiveTab('saida')}
-                        className="px-4 py-2.5 bg-white hover:bg-gray-50 border border-gray-300 text-blue-950 text-xs sm:text-sm font-bold rounded-xl shadow-2xs transition-all flex items-center gap-2 cursor-pointer"
+                        className="px-4 py-2.5 bg-white hover:bg-slate-50 border border-slate-300 text-slate-900 text-xs sm:text-sm font-bold rounded-xl shadow-2xs transition-all flex items-center gap-2 cursor-pointer"
                       >
-                        <CheckCircle className="w-4 h-4 text-blue-600" />
+                        <CheckCircle className="w-4 h-4 text-emerald-600" />
                         Concluir Saída
                       </button>
                     </div>
@@ -222,11 +222,11 @@ export default function App() {
                 {/* Painel Resumo Zerado / Métricas */}
                 <div>
                   <div className="flex items-center justify-between mb-3">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-blue-900 flex items-center gap-2">
-                      <Database className="w-4 h-4 text-blue-600" />
+                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800 flex items-center gap-2">
+                      <Database className="w-4 h-4 text-slate-700" />
                       Painel Resumo (Valores e Contadores em Tempo Real)
                     </h3>
-                    <span className="text-[11px] text-blue-700 font-medium">
+                    <span className="text-[11px] text-slate-600 font-medium">
                       Dados persistentes no IndexedDB
                     </span>
                   </div>
@@ -235,11 +235,11 @@ export default function App() {
                 </div>
 
                 {/* Bancada Atual: Equipamentos em Andamento */}
-                <div className="bg-white border border-blue-200 rounded-xl p-5 shadow-xs">
-                  <div className="flex items-center justify-between mb-4 border-b border-blue-100 pb-3">
+                <div className="bg-white border border-slate-300 rounded-xl p-5 shadow-xs">
+                  <div className="flex items-center justify-between mb-4 border-b border-slate-200 pb-3">
                     <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-blue-600" />
-                      <h3 className="text-sm font-bold text-blue-950">
+                      <Clock className="w-4 h-4 text-slate-700" />
+                      <h3 className="text-sm font-bold text-slate-900">
                         Equipamentos em Bancada SSDX ({inProgressOrders.length})
                       </h3>
                     </div>
@@ -247,7 +247,7 @@ export default function App() {
                       <button
                         type="button"
                         onClick={() => setActiveTab('saida')}
-                        className="text-xs font-bold text-blue-700 hover:text-blue-900 flex items-center gap-1"
+                        className="text-xs font-bold text-slate-700 hover:text-black flex items-center gap-1"
                       >
                         Ir para Saída e Concluir <ArrowRight className="w-3 h-3" />
                       </button>
@@ -255,15 +255,15 @@ export default function App() {
                   </div>
 
                   {inProgressOrders.length === 0 ? (
-                    <div className="text-center py-8 px-4 bg-gray-50 rounded-lg border border-dashed border-gray-300">
-                      <p className="text-xs font-bold text-blue-950">Nenhum equipamento aguardando reparo no momento.</p>
-                      <p className="text-[11px] text-blue-700 mt-0.5">
+                    <div className="text-center py-8 px-4 bg-slate-50 rounded-lg border border-dashed border-slate-300">
+                      <p className="text-xs font-bold text-slate-900">Nenhum equipamento aguardando reparo no momento.</p>
+                      <p className="text-[11px] text-slate-600 mt-0.5">
                         Todos os equipamentos recebidos foram finalizados ou o banco está zerado.
                       </p>
                       <button
                         type="button"
                         onClick={() => setActiveTab('entrada')}
-                        className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-600 text-white rounded-md text-xs font-semibold hover:bg-blue-700 transition-colors"
+                        className="mt-3 inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 text-white rounded-md text-xs font-semibold hover:bg-black transition-colors"
                       >
                         <PlusCircle className="w-3.5 h-3.5" />
                         Registrar Entrada de Equipamento
@@ -274,11 +274,11 @@ export default function App() {
                       {inProgressOrders.slice(0, 6).map((order) => (
                         <div 
                           key={order.id} 
-                          className="p-3.5 rounded-lg border border-gray-200 bg-white hover:border-blue-400 hover:bg-gray-50 transition-all flex flex-col justify-between space-y-2"
+                          className="p-3.5 rounded-lg border border-slate-200 bg-white hover:border-slate-400 hover:bg-slate-50 transition-all flex flex-col justify-between space-y-2"
                         >
                           <div>
                             <div className="flex items-center justify-between gap-1">
-                              <span className="font-mono text-xs font-bold bg-blue-600 text-white px-2 py-0.5 rounded">
+                              <span className="font-mono text-xs font-bold bg-slate-800 text-white px-2 py-0.5 rounded">
                                 OS #{order.osNumber}
                               </span>
                               <span className="text-xs font-bold text-black font-mono">
@@ -286,15 +286,15 @@ export default function App() {
                               </span>
                             </div>
 
-                            <div className="mt-2 text-xs font-bold text-blue-950 truncate">
+                            <div className="mt-2 text-xs font-bold text-slate-900 truncate">
                               {order.clientName}
                             </div>
 
-                            <div className="text-xs text-blue-800 flex items-center gap-1 mt-0.5 truncate">
+                            <div className="text-xs text-slate-700 flex items-center gap-1 mt-0.5 truncate">
                               {order.equipmentType === 'pc_desktop' ? (
-                                <Monitor className="w-3 h-3 text-blue-600 shrink-0" />
+                                <Monitor className="w-3 h-3 text-slate-600 shrink-0" />
                               ) : (
-                                <Laptop className="w-3 h-3 text-blue-600 shrink-0" />
+                                <Laptop className="w-3 h-3 text-slate-600 shrink-0" />
                               )}
                               <span className="truncate">{order.brandModel}</span>
                             </div>
@@ -304,14 +304,14 @@ export default function App() {
                             </p>
                           </div>
 
-                          <div className="pt-2 border-t border-blue-100 flex items-center justify-between text-[11px]">
-                            <span className="text-blue-600">Entrada: {formatDateBR(order.entryDate).split(' ')[0]}</span>
+                          <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px]">
+                            <span className="text-slate-600">Entrada: {formatDateBR(order.entryDate).split(' ')[0]}</span>
                             <button
                               type="button"
                               onClick={() => {
                                 handleOpenReceipt(order);
                               }}
-                              className="text-blue-700 font-semibold hover:underline flex items-center gap-1 cursor-pointer"
+                              className="text-slate-800 font-semibold hover:underline flex items-center gap-1 cursor-pointer"
                             >
                               <FileText className="w-3 h-3" /> Ficha
                             </button>

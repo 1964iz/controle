@@ -154,6 +154,15 @@ export function calculateStats(services: ServiceOrder[]): ServiceStats {
   let totalExits = 0;
   let inProgress = 0;
   let totalAmount = 0;
+  let dailyAmount = 0;
+  let monthlyAmount = 0;
+  let dailyOrdersCount = 0;
+  let monthlyOrdersCount = 0;
+
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const currentMonth = now.getMonth();
+  const currentDate = now.getDate();
 
   for (const s of services) {
     if (s.status === 'em_andamento') {
@@ -161,8 +170,34 @@ export function calculateStats(services: ServiceOrder[]): ServiceStats {
     } else if (s.status === 'finalizado' || s.status === 'sem_reparo') {
       totalExits++;
       if (s.status === 'finalizado') {
-        const val = s.finalValue !== undefined && s.finalValue !== null ? s.finalValue : s.budgetedValue;
-        totalAmount += Number(val) || 0;
+        const val = Number(s.finalValue !== undefined && s.finalValue !== null ? s.finalValue : s.budgetedValue) || 0;
+        totalAmount += val;
+
+        // Data de conclusão para fins contábeis (exitDate -> updatedAt -> entryDate)
+        let orderDate: Date | null = null;
+        if (s.exitDate) {
+          orderDate = new Date(s.exitDate);
+        } else if (s.updatedAt) {
+          orderDate = new Date(s.updatedAt);
+        } else if (s.entryDate) {
+          orderDate = new Date(s.entryDate);
+        }
+
+        if (orderDate && !isNaN(orderDate.getTime())) {
+          const isCurrentYear = orderDate.getFullYear() === currentYear;
+          const isCurrentMonth = isCurrentYear && orderDate.getMonth() === currentMonth;
+          const isCurrentDay = isCurrentMonth && orderDate.getDate() === currentDate;
+
+          if (isCurrentMonth) {
+            monthlyAmount += val;
+            monthlyOrdersCount++;
+          }
+
+          if (isCurrentDay) {
+            dailyAmount += val;
+            dailyOrdersCount++;
+          }
+        }
       }
     }
   }
@@ -172,6 +207,10 @@ export function calculateStats(services: ServiceOrder[]): ServiceStats {
     totalExits,
     inProgress,
     totalAmount,
+    dailyAmount,
+    monthlyAmount,
+    dailyOrdersCount,
+    monthlyOrdersCount,
   };
 }
 

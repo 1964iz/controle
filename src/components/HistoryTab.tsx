@@ -75,33 +75,33 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
   };
 
   return (
-    <div className="bg-white border border-gray-300 rounded-xl shadow-xs overflow-hidden">
-      {/* Header do Histórico Superior com Fundo Cinza Claro e Ícone de Computador Moderno */}
-      <div className="bg-gray-100 border-b border-gray-300 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div className="bg-white border border-slate-300 rounded-xl shadow-xs overflow-hidden">
+      {/* Header do Histórico Superior com Fundo Prata Claro (Light Silver) e Ícone de Computador Moderno */}
+      <div className="bg-gradient-to-r from-slate-100 via-gray-100 to-slate-200 border-b border-slate-300 p-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-3.5">
-          <div className="p-2.5 bg-white border border-gray-300 text-blue-600 rounded-xl shadow-xs flex items-center justify-center">
-            <Monitor className="w-6 h-6 text-blue-600 stroke-[2.2]" />
+          <div className="p-2.5 bg-white border border-slate-300 text-slate-800 rounded-xl shadow-xs flex items-center justify-center">
+            <Monitor className="w-6 h-6 text-slate-800 stroke-[2.2]" />
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-lg font-bold text-blue-950">Histórico de Atendimentos</h2>
-              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-white text-blue-900 border border-gray-300">
+              <h2 className="text-lg font-bold text-slate-900">Histórico de Atendimentos</h2>
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-white text-slate-800 border border-slate-300">
                 SSDX Franca/SP
               </span>
             </div>
-            <p className="text-xs text-blue-800">Controle geral de PC e Notebook da SSDX • Técnico Igor Zelnik</p>
+            <p className="text-xs text-slate-600">Controle geral de PC e Notebook da SSDX • Técnico Igor Zelnik</p>
           </div>
         </div>
 
         {/* Filtros e Busca */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
           {/* Status Tabs */}
-          <div className="flex items-center p-1 bg-white border border-gray-300 rounded-lg text-xs font-semibold text-blue-900">
+          <div className="flex items-center p-1 bg-white border border-slate-300 rounded-lg text-xs font-semibold text-slate-700">
             <button
               type="button"
               onClick={() => setStatusFilter('todos')}
               className={`px-3 py-1.5 rounded-md transition-colors ${
-                statusFilter === 'todos' ? 'bg-blue-600 text-white' : 'hover:bg-gray-100 text-blue-900'
+                statusFilter === 'todos' ? 'bg-slate-900 text-white' : 'hover:bg-slate-100 text-slate-700'
               }`}
             >
               Todos ({orders.length})
@@ -110,7 +110,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
               type="button"
               onClick={() => setStatusFilter('em_andamento')}
               className={`px-3 py-1.5 rounded-md transition-colors ${
-                statusFilter === 'em_andamento' ? 'bg-blue-600 text-white' : 'hover:bg-gray-100 text-blue-900'
+                statusFilter === 'em_andamento' ? 'bg-slate-900 text-white' : 'hover:bg-slate-100 text-slate-700'
               }`}
             >
               Em Andamento
@@ -119,7 +119,7 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
               type="button"
               onClick={() => setStatusFilter('finalizado')}
               className={`px-3 py-1.5 rounded-md transition-colors ${
-                statusFilter === 'finalizado' ? 'bg-blue-600 text-white' : 'hover:bg-gray-100 text-blue-900'
+                statusFilter === 'finalizado' ? 'bg-slate-900 text-white' : 'hover:bg-slate-100 text-slate-700'
               }`}
             >
               Finalizados
@@ -128,13 +128,13 @@ export function HistoryTab({ orders, onOrderDeleted, onOpenReceipt, initialFilte
 
           {/* Search Box */}
           <div className="relative min-w-[220px]">
-            <Search className="w-4 h-4 text-blue-600 absolute left-3 top-2.5" />
+            <Search className="w-4 h-4 text-slate-600 absolute left-3 top-2.5" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Buscar cliente, CPF, OS, modelo..."
-              className="w-full pl-9 pr-3 py-1.5 bg-white border border-gray-300 rounded-lg text-xs text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-1 focus:ring-blue-600"
+              className="w-full pl-9 pr-3 py-1.5 bg-white border border-slate-300 rounded-lg text-xs text-black placeholder:text-slate-400 focus:outline-hidden focus:ring-1 focus:ring-slate-800"
             />
           </div>
         </div>

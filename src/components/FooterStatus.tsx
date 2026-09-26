@@ -61,8 +61,8 @@ export function FooterStatus({
 
   return (
     <div className="mt-auto print:hidden">
-      {/* Barra Acima do Rodapé - Link do Site e Últimas Atualizações */}
-      <div className="bg-gray-100 border-t border-gray-300 py-3 px-4 sm:px-6 lg:px-8 text-xs text-blue-950">
+      {/* Barra Acima do Rodapé - Link do Site e Últimas Atualizações - Painel Prata Claro */}
+      <div className="bg-gradient-to-r from-slate-100 via-gray-100 to-slate-200 border-t border-slate-300 py-3 px-4 sm:px-6 lg:px-8 text-xs text-slate-800">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
           
           {/* Link do site https://controle-ten-delta.vercel.app/ */}
@@ -72,26 +72,26 @@ export function FooterStatus({
               href="https://controle-ten-delta.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-gray-300 hover:border-blue-500 rounded-lg text-blue-700 hover:text-blue-900 font-semibold shadow-2xs transition-all cursor-pointer group"
+              className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-slate-300 hover:border-slate-500 rounded-lg text-slate-800 hover:text-black font-semibold shadow-2xs transition-all cursor-pointer group"
             >
-              <Globe className="w-3.5 h-3.5 text-blue-600 group-hover:scale-110 transition-transform" />
+              <Globe className="w-3.5 h-3.5 text-slate-700 group-hover:scale-110 transition-transform" />
               <span className="font-mono text-[11px] sm:text-xs">https://controle-ten-delta.vercel.app/</span>
-              <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-blue-600" />
+              <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-black" />
             </a>
           </div>
 
           {/* Última atualização da página e do banco de dados */}
           <div className="flex items-center gap-3 flex-wrap justify-center md:justify-end text-[11px]">
             {/* Atualização da Página */}
-            <div className="flex items-center gap-1.5 bg-white border border-gray-300 px-2.5 py-1 rounded-md text-slate-700">
-              <Clock className="w-3 h-3 text-blue-600 shrink-0" />
+            <div className="flex items-center gap-1.5 bg-white border border-slate-300 px-2.5 py-1 rounded-md text-slate-700">
+              <Clock className="w-3 h-3 text-slate-600 shrink-0" />
               <span>
                 Última atualização da página: <strong className="text-black font-mono">{formattedPageTime}</strong>
               </span>
             </div>
 
             {/* Atualização do Banco de Dados */}
-            <div className="flex items-center gap-1.5 bg-white border border-gray-300 px-2.5 py-1 rounded-md text-slate-700">
+            <div className="flex items-center gap-1.5 bg-white border border-slate-300 px-2.5 py-1 rounded-md text-slate-700">
               <Database className="w-3 h-3 text-emerald-600 shrink-0" />
               <span>
                 Última atualização do banco de dados: <strong className="text-black font-mono">{formattedDbTime}</strong>
@@ -103,7 +103,7 @@ export function FooterStatus({
                 type="button"
                 onClick={onRefreshDb}
                 title="Verificar e sincronizar dados agora"
-                className="p-1 text-slate-500 hover:text-blue-700 hover:bg-white rounded border border-transparent hover:border-gray-300 transition-colors cursor-pointer"
+                className="p-1 text-slate-500 hover:text-slate-900 hover:bg-white rounded border border-transparent hover:border-slate-300 transition-colors cursor-pointer"
               >
                 <RefreshCw className="w-3.5 h-3.5" />
               </button>
@@ -112,8 +112,8 @@ export function FooterStatus({
         </div>
       </div>
 
-      {/* Rodapé Principal com Texto Solicitado */}
-      <footer className="bg-white border-t border-gray-300 py-4 px-4 sm:px-6 lg:px-8 text-xs text-slate-700 shadow-2xs">
+      {/* Rodapé Principal com Texto Solicitado - Fundo Branco */}
+      <footer className="bg-white border-t border-slate-300 py-4 px-4 sm:px-6 lg:px-8 text-xs text-slate-700 shadow-2xs">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           
           {/* Identificação solicitada: - SSDX Técnica Operacional em Informática - Telefone: (16) 99965-4150 Franca SP. Igor Zelnik 2026. */}
@@ -122,9 +122,9 @@ export function FooterStatus({
               <span>- SSDX Técnica Operacional em Informática - Telefone:</span>
               <a 
                 href="tel:16999654150" 
-                className="text-blue-700 hover:text-blue-900 hover:underline inline-flex items-center gap-1 font-mono font-bold"
+                className="text-slate-900 hover:underline inline-flex items-center gap-1 font-mono font-bold"
               >
-                <Phone className="w-3 h-3 text-blue-600 inline" />
+                <Phone className="w-3 h-3 text-slate-700 inline" />
                 (16) 99965-4150
               </a>
               <span>Franca SP. Igor Zelnik 2026.</span>
@@ -157,14 +157,14 @@ export function FooterStatus({
       {/* Modal de Confirmação para Limpar Todos os Dados */}
       {showConfirmModal && (
         <div className="fixed inset-0 bg-black/40 backdrop-blur-xs flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-md w-full p-6 border border-blue-200 shadow-2xl space-y-4">
+          <div className="bg-white rounded-xl max-w-md w-full p-6 border border-slate-300 shadow-2xl space-y-4">
             <div className="flex items-center gap-3 text-red-600">
               <div className="p-2.5 bg-red-50 rounded-xl">
                 <AlertTriangle className="w-6 h-6" />
               </div>
               <div>
-                <h3 className="text-base font-bold text-blue-950">Limpar todo o banco de dados?</h3>
-                <p className="text-xs text-blue-700">Recomeçar o painel da SSDX totalmente do zero</p>
+                <h3 className="text-base font-bold text-slate-900">Limpar todo o banco de dados?</h3>
+                <p className="text-xs text-slate-600">Recomeçar o painel da SSDX totalmente do zero</p>
               </div>
             </div>
 
@@ -172,8 +172,8 @@ export function FooterStatus({
               Esta ação irá apagar permanentemente todos os <strong className="text-black font-mono">{recordCount}</strong> atendimentos e ordens de serviço gravados no <strong>IndexedDB</strong> deste navegador. Todos os resumos de entradas, saídas e valores voltarão ao estado zerado.
             </p>
 
-            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-xs text-blue-900 flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-blue-600 shrink-0" />
+            <div className="p-3 bg-slate-100 border border-slate-300 rounded-lg text-xs text-slate-800 flex items-center gap-2">
+              <ShieldCheck className="w-4 h-4 text-slate-700 shrink-0" />
               <span>Esta ação não pode ser desfeita. Tem certeza de que deseja continuar?</span>
             </div>
 
@@ -182,7 +182,7 @@ export function FooterStatus({
                 type="button"
                 onClick={() => setShowConfirmModal(false)}
                 disabled={isClearing}
-                className="px-4 py-2 border border-blue-200 text-blue-800 text-xs font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+                className="px-4 py-2 border border-slate-300 text-slate-700 text-xs font-semibold rounded-lg hover:bg-slate-100 transition-colors"
               >
                 Cancelar
               </button>

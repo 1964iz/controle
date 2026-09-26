@@ -176,25 +176,25 @@ export function EntryTab({ onSuccess, nextOSPreview }: EntryTabProps) {
   };
 
   return (
-    <div className="bg-white border border-gray-300 rounded-xl shadow-xs overflow-hidden">
-      {/* Header of Form Superior com Fundo Cinza Claro e Ícone de Computador Moderno */}
-      <div className="bg-gray-100 border-b border-gray-300 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div className="bg-white border border-slate-300 rounded-xl shadow-xs overflow-hidden">
+      {/* Header of Form Superior com Fundo Prata Claro (Light Silver) e Ícone de Computador Moderno */}
+      <div className="bg-gradient-to-r from-slate-100 via-gray-100 to-slate-200 border-b border-slate-300 px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div className="flex items-center gap-3.5">
-          <div className="p-2.5 bg-white border border-gray-300 text-blue-600 rounded-xl shadow-xs flex items-center justify-center">
-            <Monitor className="w-6 h-6 text-blue-600 stroke-[2.2]" />
+          <div className="p-2.5 bg-white border border-slate-300 text-slate-800 rounded-xl shadow-xs flex items-center justify-center">
+            <Monitor className="w-6 h-6 text-slate-800 stroke-[2.2]" />
           </div>
           <div>
             <div className="flex items-center gap-2 flex-wrap">
-              <h2 className="text-lg font-bold text-blue-950">Aba Entrada: Registro de PC e Notebook</h2>
-              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-white text-blue-900 border border-gray-300">
+              <h2 className="text-lg font-bold text-slate-900">Aba Entrada: Registro de PC e Notebook</h2>
+              <span className="px-2 py-0.5 rounded text-[11px] font-bold bg-white text-slate-800 border border-slate-300">
                 SSDX Franca/SP
               </span>
             </div>
-            <p className="text-xs text-blue-800">Atendimento Técnico Especializado por Igor Zelnik</p>
+            <p className="text-xs text-slate-600">Atendimento Técnico Especializado por Igor Zelnik</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 bg-white border border-gray-300 px-3.5 py-1.5 rounded-lg shadow-2xs">
-          <span className="text-xs font-semibold text-blue-800">Previsão de OS:</span>
+        <div className="flex items-center gap-2 bg-white border border-slate-300 px-3.5 py-1.5 rounded-lg shadow-2xs">
+          <span className="text-xs font-semibold text-slate-700">Previsão de OS:</span>
           <span className="text-sm font-bold text-black font-mono">#{nextOSPreview}</span>
         </div>
       </div>

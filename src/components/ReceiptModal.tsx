@@ -72,13 +72,13 @@ export function ReceiptModal({ order, onClose, initialAction }: ReceiptModalProp
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50 overflow-y-auto">
-      <div className="bg-white rounded-xl max-w-2xl w-full border border-blue-200 shadow-2xl overflow-hidden my-6 print-receipt-wrapper">
+      <div className="bg-white rounded-xl max-w-2xl w-full border border-slate-300 shadow-2xl overflow-hidden my-6 print-receipt-wrapper">
         
-        {/* Modal Controls (Not printed) - Top bar with light gray background */}
-        <div className="bg-gray-100 border-b border-gray-300 px-5 py-3 flex flex-wrap items-center justify-between gap-3 print:hidden">
+        {/* Modal Controls (Not printed) - Top bar with prata claro (light silver) background */}
+        <div className="bg-gradient-to-r from-slate-100 via-gray-100 to-slate-200 border-b border-slate-300 px-5 py-3 flex flex-wrap items-center justify-between gap-3 print:hidden">
           <div className="flex items-center gap-2">
-            <Monitor className="w-4 h-4 text-blue-600 stroke-[2.2]" />
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-950">
+            <Monitor className="w-4 h-4 text-slate-800 stroke-[2.2]" />
+            <span className="text-xs font-bold uppercase tracking-wider text-slate-900">
               Comprovante / OS #{order.osNumber}
             </span>
           </div>

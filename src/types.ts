@@ -39,4 +39,8 @@ export interface ServiceStats {
   totalExits: number;
   inProgress: number;
   totalAmount: number;
+  dailyAmount: number;        // Valor total somado do dia (diário)
+  monthlyAmount: number;      // Valor acumulado total do mês corrente até o momento (mensal)
+  dailyOrdersCount: number;   // Quantidade de OSs concluídas hoje
+  monthlyOrdersCount: number; // Quantidade de OSs concluídas no mês
 }
